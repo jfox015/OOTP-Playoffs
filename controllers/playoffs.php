@@ -26,10 +26,11 @@ class Playoffs extends Front_Controller {
 		
 		$settings = $this->settings_lib->find_all();
 		
-		$season = -1;
 		// Extract Parameters
 		$league_id = $this->uri->segment(3);
+		$league_id = (isset($league_id) && !empty($league_id)) ? $league_id : 100;
 		$season = $this->uri->segment(4);
+		$season = (isset($season) && !empty($season)) ? $season : -1;
 		
 		// Unless a specific season is passed, assume current or last post-season data
 		if ($season != -1 && ($season === null || empty($season))) {
@@ -46,17 +47,18 @@ class Playoffs extends Front_Controller {
 
         $playoff_data = $this->playoffs_model->generate_playoff_data($teams,$games,$subleagues,$playofff_struct);
 
-        $teams = $playoff_data[0];
-        $rounds = $playoff_data[1];
-        $series = $playoff_data[2];
-
+		if (is_array($playoff_data) && count($playoff_data)) {
+			$teams = $playoff_data[0];
+			$rounds = $playoff_data[1];
+			$series = $playoff_data[2];
+			
+			Template::set('teams',$teams);
+			Template::set('rounds',$rounds);
+			Template::set('subleagues',$subleagues);
+			Template::set('series',$series);
+			Template::set('playoffConfig',$playofff_struct);
+		}
         $this->load->helper('open_sports_toolkit/general');
-
-        Template::set('teams',$teams);
-        Template::set('rounds',$rounds);
-        Template::set('subleagues',$subleagues);
-        Template::set('series',$series);
-        Template::set('playoffConfig',$playofff_struct);
 
         Template::render();
 	}

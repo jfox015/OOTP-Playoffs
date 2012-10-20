@@ -36,21 +36,20 @@ class Playoffs_model extends BF_Model
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
         return $struct;
 	}
-	
-	public function get_playoff_teams($league_id = 100) {
-	
-		return false;
-	}
 
     public function get_team_information($league_id = 100) {
         $teams = array();
         if (!$this->use_prefix) $this->db->dbprefix = '';
-        $this->db->select('teams.team_id,abbr,name,nickname,sub_league_id,logo_file,w,l,pos')
+        $this->db->select('teams.team_id,abbr,name,nickname,sub_league_id,logo_file,text_color_id,background_color_id, w,l,pos')
             ->join('team_record','team_record.team_id = teams.team_id','left')
             ->where('teams.league_id',$league_id);
         $query = $this->db->get('teams');
         if ($query->num_rows() > 0) {
-			$teams = $query->result_array();
+			foreach($query->result() as $row) {
+				$teams = $teams + array($row->team_id => array('team_id'=>$row->team_id, 'abbr'=>$row->abbr,'name'=>$row->name,'nickname'=>$row->nickname,
+				'city'=>$row->name,'sub_league_id'=>$row->sub_league_id,'logo_file'=>$row->logo_file,'text_color_id'=>$row->text_color_id,
+				'background_color_id'=>$row->background_color_id,'w'=>$row->w,'l'=>$row->l,'pos'=>$row->pos));
+			}
 		}
         $query->free_result();
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
