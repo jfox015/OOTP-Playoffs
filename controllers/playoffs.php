@@ -51,12 +51,13 @@ class Playoffs extends Front_Controller {
 			$teams = $playoff_data[0];
 			$rounds = $playoff_data[1];
 			$series = $playoff_data[2];
-			
+
 			$logo_path = $settings['ootp.asset_url'].'images/';
             if (intval($settings['ootp.game_version']) >= 13) {
                 $logo_path .= 'team_logos/';
             }
             Template::set('teams',$teams);
+
 			Template::set('rounds',$rounds);
 			Template::set('subleagues',$subleagues);
 			Template::set('series',$series);
@@ -70,6 +71,7 @@ class Playoffs extends Front_Controller {
             Assets::add_module_css('playoffs','playoffs.css');
 
         }
+
         Template::render();
 	}
 	
