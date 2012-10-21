@@ -26,7 +26,26 @@ class Playoffs_model extends BF_Model
     public function load_playoff_structure($league_id = 100) {
 		$struct = array();
         if (!$this->use_prefix) $this->db->dbprefix = '';
-        $this->db->select('*')
+
+        $max_round = 1;
+        $this->db->select('max_round')
+                 ->where('league_id',$league_id);
+        $query = $this->db->get('league_playoffs');
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            $max_round = $row->max_round;
+        }
+        $query->free_result();
+        unset($query);
+
+        $round_name_select = '';
+        $counter = 1;
+        while ($counter < ($max_round+1))  {
+             if (!empty($round_name_select)) { $round_name_select .= ","; }
+             $round_name_select .= 'round_names'.($counter-1);
+             $counter++;
+        }
+        $this->db->select('play_off_mode,round,max_round,'.$round_name_select)
 				 ->where('league_id',$league_id);
 		$query = $this->db->get('league_playoffs');
 		if ($query->num_rows() > 0) {
@@ -34,23 +53,22 @@ class Playoffs_model extends BF_Model
 		}
 		$query->free_result();
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
-        return $struct;
-	}
-	
-	public function get_playoff_teams($league_id = 100) {
-	
-		return false;
+        return $struct[0];
 	}
 
     public function get_team_information($league_id = 100) {
         $teams = array();
         if (!$this->use_prefix) $this->db->dbprefix = '';
-        $this->db->select('teams.team_id,abbr,name,nickname,sub_league_id,logo_file,w,l,pos')
+        $this->db->select('teams.team_id,abbr,name,nickname,sub_league_id,logo_file,text_color_id,background_color_id, w,l,pos')
             ->join('team_record','team_record.team_id = teams.team_id','left')
             ->where('teams.league_id',$league_id);
         $query = $this->db->get('teams');
         if ($query->num_rows() > 0) {
-			$teams = $query->result_array();
+			foreach($query->result() as $row) {
+				$teams = $teams + array($row->team_id => array('team_id'=>$row->team_id, 'abbr'=>$row->abbr,'name'=>$row->name,'nickname'=>$row->nickname,
+				'city'=>$row->name,'sub_league_id'=>$row->sub_league_id,'logo'=>$row->logo_file,'text_color_id'=>$row->text_color_id,
+				'background_color_id'=>$row->background_color_id,'w'=>$row->w,'l'=>$row->l,'pos'=>$row->pos));
+			}
 		}
         $query->free_result();
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
@@ -73,7 +91,7 @@ class Playoffs_model extends BF_Model
         return $games;
 	}
 
-    public function generate_playoff_data($teams,$games, $subleagues,$playoff_structure) {
+    public function generate_summary_data($teams,$games, $subleagues, $playoff_structure) {
 
         $return_arr = array();
         if (isset($games) && is_array($games) && count($games)) {
@@ -101,7 +119,7 @@ class Playoffs_model extends BF_Model
                     $teams[$hid]['rnd']=$rnd;
                     $teams[$aid]['rnd']=$rnd;
                     $series[$serID]['rnd']=$rnd;
-                    $series[$serID]['slid']=$teams[$hid]['slid'];
+                    $series[$serID]['slid']=$teams[$hid]['sub_league_id'];
                     $rounds[$rnd]=1;
                 }
 
@@ -119,6 +137,15 @@ class Playoffs_model extends BF_Model
             }
             $return_arr = array($teams, $rounds, $series);
         }
+        foreach($rounds as $round => $val) {
+            echo($round ." = ".$val."<br />");
+        }
+        return $return_arr;
+    }
+
+    public function generate_series_data($teams,$games, $subleagues, $playoff_structure) {
+        $return_arr = array();
+
         return $return_arr;
     }
 	/*-----------------------------------------------

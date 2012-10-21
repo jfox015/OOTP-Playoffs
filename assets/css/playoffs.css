@@ -1,0 +1,35 @@
+.headline_ws {
+    height:14px; padding:6px;
+    background: #133351; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzEzMzM1MSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY0JSIgc3RvcC1jb2xvcj0iIzRjODFjYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5OWIwZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #133351 0%, #4c81cc 64%, #99b0e5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#133351), color-stop(64%,#4c81cc), color-stop(100%,#99b0e5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* IE10+ */
+    background: linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#133351', endColorstr='#99b0e5',GradientType=0 ); /* IE6-8 */
+}
+.headline_other {
+    height:14px; padding:6px;
+    background: rgb(40,52,59);
+    background: -moz-linear-gradient(top,  rgba(40,52,59,1) 0%, rgba(130,140,149,1) 64%, rgba(181,189,200,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(40,52,59,1)), color-stop(64%,rgba(130,140,149,1)), color-stop(100%,rgba(181,189,200,1)));
+    background: -webkit-linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+    background: -o-linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+    background: linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28343b', endColorstr='#b5bdc8',GradientType=0 );
+}
+h3 {
+    color:#690000;
+}
+.teamsTitles {
+    font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size : 12pt;
+    font-weight : bold;
+    color:#fff;
+}
+td.icgb 	{ background-color:#E3E3E3;font-weight:bold;text-align:center;color:#000000; border-left-width:1px; border-left-style:solid; border-left-color:#E3E3E3; border-top-width:1px; border-top-style:solid; border-top-color:#E3E3E3; }
+.s1 		{ background-color:#E3E3E3;font-weight:normal;text-align:right;color:#000000;padding-right:4px; }
