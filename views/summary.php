@@ -79,7 +79,7 @@ if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) {
                 $text .= "      </tr>\n";
                 $text .= "      <tr>\n";
                 $text .= "       <td class='sl' colspan=4 style='text-align:right;padding-right:5px;border-top-width:1px; border-top-style:solid; border-top-color:#999999;'>";
-                $text .= anchor('/playoffs/'.$league_id.'/'.$serID.'/'.$rnd,'Series Detail')."\n";
+                $text .= anchor('/playoffs/series/'.$league_id.'/'.$serID.'/'.$rnd,'Series Detail')."\n";
                 $text .= "      </td>\n";
                 $text .= "      </tr>\n";
                 $text .= "     </table>\n";
@@ -115,7 +115,7 @@ if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) {
                         continue;
                     }
                     ##### Get Teams #####
-                    $e = explode(":", $serID);
+                    $e = explode("_", $serID);
                     $aid = $e[0];
                     $hid = $e[1];
 
@@ -164,7 +164,7 @@ if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) {
                     $text .= "      </tr>\n";
                     $text .= "      <tr>\n";
                     $text .= "       <td class='sl' colspan=4 style='text-align:right;padding-right:5px;border-top-width:1px; border-top-style:solid; border-top-color:#999999;'>";
-                    $text .= anchor('/playoffs/'.$league_id.'/'.$serID.'/'.$rnd,'Series Detail')."\n";
+                    $text .= anchor('/playoffs/series/'.$league_id.'/'.$serID.'/'.$rnd,'Series Detail')."\n";
                     $text .= "      </tr>\n";
                     $text .= "     </table>\n";
                     $text .= "    </div><br />\n";

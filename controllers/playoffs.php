@@ -45,7 +45,7 @@ class Playoffs extends Front_Controller {
 		$teams = $this->playoffs_model->get_team_information($league_id);
         $games = $this->playoffs_model->get_playoff_games($league_id);
 
-        $playoff_data = $this->playoffs_model->generate_summary_data($teams,$games,$subleagues,$playofff_struct);
+        $playoff_data = $this->playoffs_model->generate_playoff_data($teams,$games,$subleagues,$playofff_struct);
 
 		if (is_array($playoff_data) && count($playoff_data)) {
 			$teams = $playoff_data[0];
@@ -82,7 +82,7 @@ class Playoffs extends Front_Controller {
         // Extract Parameters
         $league_id = $this->uri->segment(3);
         $league_id = (isset($league_id) && !empty($league_id)) ? $league_id : 100;
-        $series_id = $this->uri->segment(5);
+        $series_id = $this->uri->segment(4);
         $series_id = (isset($series_id) && !empty($series_id)) ? $series_id : -1;
         $round = $this->uri->segment(5);
         $round = (isset($round) && !empty($round)) ? $round : 1;
@@ -93,12 +93,48 @@ class Playoffs extends Front_Controller {
             $subleagues = $this->leagues_model->get_subleague_info($league_id);
             $playofff_struct = $this->playoffs_model->load_playoff_structure($league_id);
             $teams = $this->playoffs_model->get_team_information($league_id);
-            $games = $this->playoffs_model->get_playoff_games($league_id);
+            $sTeams = explode("_",$series_id);
+            $games = $this->playoffs_model->get_playoff_games($league_id, $sTeams[0], $sTeams[1]);
 
-            $playoff_data = $this->playoffs_model->generate_series_data($teams,$games,$subleagues,$playofff_struct);
+            $playoff_data = $this->playoffs_model->generate_playoff_data($teams,$games,$subleagues,$playofff_struct);
+
+            if (is_array($playoff_data) && count($playoff_data)) {
+                $teams = $playoff_data[0];
+                $rounds = $playoff_data[1];
+                $series = $playoff_data[2];
+                $gidList = $playoff_data[3];
+                $pcnt = $playoff_data[4];
+
+                $logo_path = $settings['ootp.asset_url'].'images/';
+                if (intval($settings['ootp.game_version']) >= 13) {
+                    $logo_path .= 'team_logos/';
+                }
+                Template::set('teams',$teams);
+
+                Template::set('rounds',$rounds);
+                Template::set('subleagues',$subleagues);
+                Template::set('series',$series);
+                Template::set('playoffConfig',$playofff_struct);
+                Template::set('logo_path',$logo_path);
+                Template::set('settings',$settings);
+                Template::set('league_id',$league_id);
+                Template::set('serID',$series_id);
+                Template::set('hid',$sTeams[0]);
+                Template::set('aid',$sTeams[1]);
+                Template::set('gidList',$gidList);
+                Template::set('pcnt',$pcnt);
+                Template::set('rnd',$round);
+
+                $this->load->helper('open_sports_toolkit/general');
+
+                Assets::add_module_css('playoffs','playoffs.css');
+
+            }
         }   else {
             Template::set('outMess',"<b>Error:</b> No series Id was provided or the series was not found.");
         }
+        $this->load->helper('open_sports_toolkit/general');
+
         Template::render();
 	}
 	
