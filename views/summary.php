@@ -59,30 +59,78 @@ if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) {
                 }
 
                 ##### Show Each Series #####
-                $text .= "     <table cellpadding=2 cellspacing=0 style='border:1px black solid;width:400px;margin:10px;'>\n";
-                $text .= "      <tr class='headline_ws'>\n";
-                $text .= "       <td class='teamsTitles' colspan=4>\n";
-                $text .= "        " . $teams[$aid]['city'] . " vs. " . $teams[$hid]['city'] . "\n";
-                $text .= "       </td>\n";
-                $text .= "      </tr>\n";
-                $text .= "      <tr>\n";
-                $text .= "       <td style='padding:1px;width:44px;border-right:1px solid #999999;'><img src='" . $logo_path . $teams[$aid]['logo'] . "' width=40 height=40></td>\n";
-                $text .= "       <td class='sl' width=175><a href='".$settings['ootp.asset_url']."teams/team_$aid.html'>" . $teams[$aid]['name'] . "</a></td>\n";
-                $text .= "       <td class='sl' width=175 style='text-align:right;padding-right:5px;'>" . ordinal_suffix($teams[$aid]['pos']) . " place, " . $teams[$aid]['w'] . "-" . $teams[$aid]['l'] . "</td>\n";
-                $text .= "       <td class='icgb' width=50>" . $series[$serID][$aid]['w'] . "</td>\n";
-                $text .= "      </tr>\n";
-                $text .= "      <tr>\n";
-                $text .= "       <td style='padding:1px;width:44px;border-right:1px solid #999999;'><img src='" . $logo_path . $teams[$hid]['logo'] . "' width=40 height=40></td>\n";
-                $text .= "       <td class='sl' width=175 style='border-top-width:1px; border-top-style:solid; border-top-color:#999999;'><a href='$lgpath/teams/team_$hid.html'>" . $teams[$hid]['name'] . "</a></td>\n";
-                $text .= "       <td class='sl' width=175 style='text-align:right;padding-right:5px;border-top-width:1px; border-top-style:solid; border-top-color:#999999;'>" . ordinal_suffix($teams[$hid]['pos']) . " place, " . $teams[$hid]['w'] . "-" . $teams[$hid]['l'] . "</td>\n";
-                $text .= "       <td class='icgb' width=50 style='border-top-width:1px; border-top-style:solid; border-top-color:#999999;'>" . $series[$serID][$hid]['w'] . "</td>\n";
-                $text .= "      </tr>\n";
-                $text .= "      <tr>\n";
-                $text .= "       <td class='sl' colspan=4 style='text-align:right;padding-right:5px;border-top-width:1px; border-top-style:solid; border-top-color:#999999;'>";
-                $text .= anchor('/playoffs/series/'.$league_id.'/'.$serID.'/'.$rnd,'Series Detail')."\n";
-                $text .= "      </td>\n";
-                $text .= "      </tr>\n";
-                $text .= "     </table>\n";
+                $text.="     <table cellpadding=2 cellspacing=0 style='width:98%;margin:10px;'>\n";
+				$text.="     <tr>\n";
+				$text.="     <td style='padding:1px;width:30%;text-align:center;'><img src='" . $settings['ootp.team_logo_path'] . $teams[$aid]['logo']."' ";
+				$text.="     width='150' height='150' /><br/>";
+				$text.='     <span style="font-size:large; font-weight:bold;">'.$teams[$aid]['name'].'</span><br />'.ordinal_suffix($teams[$aid]['pos'])." place, ".$teams[$aid]['w']."-".$teams[$aid]['l'].'<br />';
+				$text.='     <a href="'.$settings['ootp.asset_url'].'teams/team_'.$aid.'.html"class="teamLinks">Team Home</a><br />';
+				$text.='     <a href="'.$settings['ootp.asset_url'].'history/team_year_'.$aid.'_'.$year.'.html" class="teamLinks">Roster</a><br />';
+				$text.='     <a href="'.$settings['ootp.asset_url'].'history/team_'.$aid.'_index.html" class="teamLinks">History</a></td>';
+
+				$text.="     <td style='padding:8px;width:40%;text-align:left;'>\n<h2>";
+				$homeScore = $series[$serID][$hid]['w'];
+				$awayScore = $series[$serID][$aid]['w'];
+				$word = " defeat ";
+				if ($homeScore == 0 || $awayScore == 0) $word = " sweep ";
+				if ($homeScore > $awayScore) {
+					$text.="     ".$teams[$hid]['nickname'].$word.$teams[$aid]['nickname']." ".$homeScore."-".$awayScore;
+				} else {
+					$text.="     ".$teams[$aid]['nickname'].$word.$teams[$hid]['nickname']." ".$awayScore."-".$homeScore;
+				}
+				$text.="</h2>\n";
+				$text.="     <p />\n";
+				$text.="     <h3 class='subhead2'>World Series MVP</h3>\n";
+				$text.="     <div class='subhead_rule'></div>\n";
+				$text.="     <p /><br />\n";
+				$text.='     <div class="spotlight">'."\n";
+				$text.='     <img src="'.$settings['players_img_path'].'player_.png" />'."\n";
+				$text.="     <span class='spotlight_player'></span><br />\n";
+				$text.='     </div>';
+				$text.='     <br class="clear" />';
+				$text.='     <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="5">'."\n";
+				$text.='     <TR ALIGN="center" VALIGN="top">';
+				$text.='         <TD colspan="2">';
+				$text.='         <TABLE BORDER="0" CELLSPACING="2" CELLPADDING="3">';
+				$text.="         <TR BGCOLOR='#606060'>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";
+				$text.="                 <TD CLASS='smallBoldCellWhite'>&nbsp;&nbsp;</TD>\n";		
+				$text.="             </TR>\n";
+				$text.="             <TR BGCOLOR='#EFEEE4' ALIGN='right'>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="                 <TD CLASS='smallCell'></TD>\n";
+				$text.="         </TR>\n";
+				$text.="         </TABLE></TD>\n";
+				$text.='     </TR>';
+				$text.='     </TABLE>';
+				$text.="     <p style='text-align:right;margin:0 8px 8px 0;'>\n";
+				$text.= 	 anchor('/playoffs/series/'.$league_id.'/'.$serID.'/'.$rnd,'Complete Series Details')."\n";
+				$text.='     </p>';
+				$text.='     </td>';
+
+				$text.="     <td style='padding:1px;width:30%;text-align:center;'><img src='" . $settings['ootp.team_logo_path'] . $teams[$hid]['logo']."' ";
+				$text.='     width="150" height="150" /><br/>';
+				$text.='     <span style="font-size:large; font-weight:bold;">'.$teams[$hid]['name'].'</span><br />';
+				$text.='     '.ordinal_suffix($teams[$hid]['pos'])." place, ".$teams[$hid]['w']."-".$teams[$hid]['l'].'<br />';
+				$text.='     <a href="'.$settings['ootp.asset_url'].'teams/team_'.$hid.'.html"class="teamLinks">Team Home</a><br />';
+				$text.='     <a href="'.$settings['ootp.asset_url'].'history/team_year_'.$hid.'_'.$year.'.html" class="teamLinks">Roster</a><br />';
+				$text.='     <a href="'.$settings['ootp.asset_url'].'history/team_'.$hid.'_index.html" class="teamLinks">History</a></td></td>';
+				$text.='     </tr>';
+				$text.='     </table>';
             }
             $text .= "</td>\n";
         }
@@ -151,13 +199,13 @@ if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) {
                     $text .= "       </td>\n";
                     $text .= "      </tr>\n";
                     $text .= "      <tr>\n";
-                    $text .= "       <td style='padding:1px;width:44px;border-right:1px solid #999999;'><img src='" . $logo_path . $teams[$aid]['logo'] . "' width=40 height=40></td>\n";
+                    $text .= "       <td style='padding:1px;width:44px;border-right:1px solid #999999;'><img src='" . $settings['ootp.team_logo_path'] . $teams[$aid]['logo'] . "' width=40 height=40></td>\n";
                     $text .= "       <td class='sl' width=175><a href='".$settings['ootp.asset_url']."teams/team_$aid.html'>" . $teams[$aid]['name'] . "</a></td>\n";
                     $text .= "       <td class='sl' width=175 style='text-align:right;padding-right:5px;'>" . ordinal_suffix($teams[$aid]['pos']) . " place, " . $teams[$aid]['w'] . "-" . $teams[$aid]['l'] . "</td>\n";
                     $text .= "       <td class='icgb' width=50>" . $series[$serID][$aid]['w'] . "</td>\n";
                     $text .= "      </tr>\n";
                     $text .= "      <tr>\n";
-                    $text .= "       <td style='padding:1px;width:44px;border-right:1px solid #999999;'><img src='" . $logo_path . $teams[$hid]['logo'] . "' width=40 height=40></td>\n";
+                    $text .= "       <td style='padding:1px;width:44px;border-right:1px solid #999999;'><img src='" . $settings['ootp.team_logo_path'] . $teams[$hid]['logo'] . "' width=40 height=40></td>\n";
                     $text .= "       <td class='sl' width=175 style='border-top-width:1px; border-top-style:solid; border-top-color:#999999;'><a href='$lgpath/teams/team_$hid.html'>" . $teams[$hid]['name'] . "</a></td>\n";
                     $text .= "       <td class='sl' width=175 style='text-align:right;padding-right:5px;border-top-width:1px; border-top-style:solid; border-top-color:#999999;'>" . ordinal_suffix($teams[$hid]['pos']) . " place, " . $teams[$hid]['w'] . "-" . $teams[$hid]['l'] . "</td>\n";
                     $text .= "       <td class='icgb' width=50 style='border-top-width:1px; border-top-style:solid; border-top-color:#999999;'>" . $series[$serID][$hid]['w'] . "</td>\n";

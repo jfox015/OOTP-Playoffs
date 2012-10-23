@@ -14,17 +14,36 @@ class Playoffs_model extends BF_Model
     protected $set_created = false;
     protected $set_modified = false;
 
+    protected $dbprefix = '';
+    protected $use_prefix = false;
+
     /*-----------------------------------------------
      /	PUBLIC FUNCTIONS
      /----------------------------------------------*/
-    public function __construct()
+    /**
+	 * C'TOR.
+	 *
+	 * CReates a new instance of Playoffs_model.
+	 *
+	 * @return	<void>
+	 */
+   public function __construct()
     {
         parent::__construct();
+		// Since this model doesn't extend the base model in the open sports toolkit, we do this manually
         $this->dbprefix = $this->db->dbprefix;
         $this->use_prefix = ($this->settings_lib->item('ootp.use_db_prefix') == 1) ? true : false;
     }
 
-    public function load_playoff_structure($league_id = 100)
+    /**
+	 * LOAD PLAYOFF STRUCTURE.
+	 *
+	 * This function takes the listings of all teams for the selected league and their information.
+	 *
+	 * @param	int	$league_id				League Id, default is 100
+	 * @return	Array						Team information array
+	 */
+   public function load_playoff_structure($league_id = 100)
     {
         $struct = array();
         if (!$this->use_prefix) $this->db->dbprefix = '';
@@ -59,8 +78,15 @@ class Playoffs_model extends BF_Model
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
         return $struct[0];
     }
-
-    public function get_team_information($league_id = 100)
+	/**
+	 * GET TEAM INFORMATION.
+	 *
+	 * This function takes the listings of all teams for the selected league and their information.
+	 *
+	 * @param	int	$league_id				League Id, default is 100
+	 * @return	Array						Team information array
+	 */
+   public function get_team_information($league_id = 100)
     {
         $teams = array();
         if (!$this->use_prefix) $this->db->dbprefix = '';
@@ -79,7 +105,14 @@ class Playoffs_model extends BF_Model
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
         return $teams;
     }
-
+	/**
+	 * GET PLAYOFF GAMES.
+	 *
+	 * This function takes the listings of teams, games, subleagues and playoff structure and creates arrays 
+	 * for output in the view. This code is based off the playoffs.php code found in StatsLab v9+.
+	 *
+	 * @author	Frank Esselink
+	 */
     public function get_playoff_games($league_id = 100, $home_team = false, $away_team = false)
     {
         $games = array();
@@ -97,20 +130,32 @@ class Playoffs_model extends BF_Model
                 $games = $games + array($row->game_id => array('game_id'=>$row->game_id,'home_team'=>$row->home_team,'hid'=>$row->home_team,'away_team'=>$row->away_team,'aid'=>$row->away_team,'date'=>$row->date,'time'=>$row->time,'played'=>$row->played,'innings'=>$row->innings,
                 'runs0'=>$row->runs0,'runs1'=>$row->runs1,'hits0'=>$row->hits0,'hits1'=>$row->hits1,'errors0'=>$row->errors0,'errors1'=>$row->errors1,'winning_pitcher'=>$row->winning_pitcher,'losing_pitcher'=>$row->losing_pitcher,'save_pitcher'=>$row->save_pitcher,));
             }
-            $games = $query->result_array();
         }
         $query->free_result();
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
         return $games;
     }
-
-    public function generate_playoff_data($teams, $games, $subleagues, $playoff_structure)
+	/**
+	 * GENERATE PLAYOFF DATA.
+	 *
+	 * This function takes the listings of teams, games, subleagues and playoff structure and creates arrays 
+	 * for output in the view. This code is based off the playoffs.php code found in StatsLab v9+.
+	 *
+	 * @param	Array	$teams				Array of team information
+	 * @param	Array	$games				Array of game data
+	 * @param	Array	$subleagues			Array of subleagues
+	 * @param	Array	$playoff_structure	Array of playoff information
+	 * @return	Array						array(ammended teams array, rounds, series, game id list, playoff count)
+	 * @auuthor	Frank Esselink
+	 */
+    public function generate_playoff_data($teams = false, $games = false, $subleagues = false, $playoff_structure = false)
     {
         $return_arr = array();
-        if (isset($games) && is_array($games) && count($games)) {
+        if ($games !== false && is_array($games) && count($games)) {
 
             $gidList = '';
             $pcnt = 0;
+            $rnd = 0;
             foreach ($games as $game_id => $row) {
                 $gid = $game_id;
                 $hid = $row['home_team'];
@@ -128,7 +173,7 @@ class Playoffs_model extends BF_Model
                     $teams[$aid][$serID] = 1;
                     $series[$serID][$hid]['w'] = 0;
                     $series[$serID][$aid]['w'] = 0;
-                    $rnd = $teams[$hid]['rnd'] + 1;
+                    $rnd = (isset($teams[$hid]['rnd'])) ? $teams[$hid]['rnd'] + 1 : 1;
                     $teams[$hid]['rnd'] = $rnd;
                     $teams[$aid]['rnd'] = $rnd;
                     $series[$serID]['rnd'] = $rnd;

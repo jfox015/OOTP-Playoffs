@@ -1,0 +1,182 @@
+@charset "utf-8";
+/* CSS Document */
+
+#content {
+ 	width:934px;
+    height:1%;
+    text-align:left;
+}
+.matchup { width:935px; }
+.matchup .matchbox {
+	position:relative; float:left; border:1px solid black;padding:18px 5px 5px 5px; width:413px; overflow:hidden; height:48px;text-align:left; 
+}
+.matchup .matchlogo {
+	position:absolute; top:0; z-indez:1; width:413px; height:75px; 
+	opacity: .45;/* Good browsers */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=65)";  /* Stupid IE */
+	filter: alpha(opacity=65);  /* Good IE */
+}
+.matchup .logoleft { left:0; }
+.matchup .logoright { right:0; }
+.matchup .matchscore { width:50px;font-size:3em; text-align:center; }
+.matchup .matchteam { padding-top:6px;width:280px;}
+.matchup .matchteam  a { font-size:2em;}
+.matchup .matchrecord { float:left; padding:5px; width:415px;font-size:1em;}
+
+#matchbar {
+    float:left;
+    width:934px;
+    height:45px;
+    margin:10px 0px 0px 0px;
+}
+#matchbar_meta {
+    float:left;
+    width:922px;
+    margin:0px 0px 22px 0px;
+	padding:0px;
+	position:relative;
+	color:#ffffff;
+	
+}
+#matchbar_meta div {
+	float:left;
+    width:457px;
+	padding:5px;
+	font-size:11px;
+	font-weight:bold;
+} 
+#matchbar_meta div.new_england { position:absolute; top:0px; left:0px; background-color:#0D254C; }
+#matchbar_meta div.kansas_city { text-align:right;position:absolute; top:0px; left:467px; background-color:#1e0101; }
+
+#matchbar_meta div.stamford { position:absolute; top:0px; left:0px; background-color:#5c2008; }
+#matchbar_meta div.california { text-align:right;position:absolute; top:0px; left:467px; background-color:#5c0000; }
+
+#matchbar_meta div.florida { position:absolute; top:0px; left:0px; background-color:#00393a; }
+#matchbar_meta div.st_louis { text-align:right;position:absolute; top:0px; left:467px; background-color:#212b57; }
+
+#matchbar_meta div.san_francisco { position:absolute; top:0px; left:0px; background-color:#5c2008; }
+#matchbar_meta div.toronto { text-align:right;position:absolute; top:0px; left:467px; background-color:#004147; }
+
+.subhead_rule {
+ 	width:  width:330px;
+    height:1px;
+    color:#000;
+    margin-top:-10px;
+}
+#col_l {
+    float:left;
+    width:548px;
+    height:1%;
+    margin-right:15px;
+}
+#col_l h2 {
+    color:#120c64;
+    font-size: 24px;
+    font-family:Tahoma, Geneva, sans-serif;
+    font-weight:normal;
+    display:inline;
+}
+#subcolumn_l {
+ 	float:left;
+    width:330px;
+    height:1%;
+    margin-right:8px;
+}
+#subcolumn_2 {
+ 	float:left;
+    width:210px;
+    height:1%;
+}
+.spotlight {
+    width:100%;
+    height:1%;
+}
+.spotlight img {
+ 	float:left;
+    padding-right:8px;
+    paddin-bottom:8px;
+    border:none;
+    outline:none;
+    width:65px;
+}
+.subhead_rule {
+ 	width: 100%;
+    height:1px;
+    background-color:#000;
+    margin-top:-10px;
+}
+.spotlight_player {
+    font-weight:bold;
+    font-size:larger;
+}
+#col_r {
+ 	  width:370px;
+      height:1%;
+      float:left;
+      padding:0px;
+}
+.otherSeries {
+    float:left;
+    width: 360px;
+    height:24px;
+    padding-top:8px;
+    padding-left:10px;
+    margin-bottom:10px;
+    background: url(images/img_other_series_bkgd.png) #cec0a4 top left no-repeat;
+}
+.series_text {
+    color:#000;
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:11px;
+    font-weight:bold;
+}
+.series_text a {
+ 	text-decoration:underline;
+    maring-right:2px;
+}
+.series_text a:hover {
+ 	font-weight:bold;
+}
+.series_pic {
+    width:370px;
+    height:210px;
+    margin-bottom:8px;
+	border: 1px solid black;
+}
+.caption {
+ 	color:#606060;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:10px;
+    font-weight:bold;
+}
+.bordered_tbl {
+ 	background: #354249;
+    border: 1px solid #354249;   
+}
+.bordered_tbl tr.headbar {
+ 	background: #354249;  
+    color:#ffffff;
+    font-size:11px;
+    font-weight:bold;
+}
+.bordered_tbl tr.header_row {
+ 	background:#a0a0a0;  
+    color:#ffffff;
+    font-size:11px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+.bordered_tbl tr.odd {
+ 	background: #d0d0d0;  
+}
+.bordered_tbl tr.even {
+ 	background: #ffffff;  
+}
+.logo_thumb {
+ 	width:40px;
+    height:40px;
+    border:0;
+}
+A:Hover {
+	font-weight:normal;
+}

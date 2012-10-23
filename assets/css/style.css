@@ -1,0 +1,282 @@
+#mainContent {
+ 	width:934px;
+    height:1%;
+}
+#content_masthead {
+    width:934px; 
+    height:145px;
+    overflow:hidden;
+    float:left;
+}
+.worldseries #content_masthead {
+    height:auto;
+}
+#masthead_division, #masthead_division_al, #masthead_division_rl {
+    width:934px; 
+    height:115px;
+    overflow:hidden;
+    background:url(division/images/img_header_div.png) top left no-repeat #000;
+    float:left;
+    text-indent:-9999px;
+}
+#masthead_division_al {
+    background:url(division/images/img_header_div_al.png) top left no-repeat #000;
+}
+#masthead_division_rl {
+    background:url(division/images/img_header_div_rl.png) top left no-repeat #000;
+}
+#masthead_champs, #masthead_champs_al, #masthead_champs_rl { 
+    width:934px; 
+    height:115px;
+    overflow:hidden;
+    background:url(championships/images/img_header_chmp.png) top left no-repeat #000;
+    float:left;
+    text-indent:-9999px;
+}
+#masthead_champs_al {
+	background:url(championships/images/img_header_chmp_al.png) top left no-repeat #000;
+    
+}
+#masthead_champs_rl {
+	background:url(championships/images/img_header_chmp_rl.png) top left no-repeat #000;
+    
+}
+#post_navbar {
+    width:932px; 
+    height:28px;
+    border:1px solid #3a3a3a;
+    background:url(images/img_nav_bkgd.png) top left no-repeat #e1e0dd;
+    float:left;
+    margin:0px;
+    padding:0px;
+    text-align:left;
+}
+#post_navbar .nav {
+ 	list-style: none;
+    margin:0;
+	padding:0;
+    height:28px;
+}
+#post_navbar .nav li {
+ 	float:left;
+    list-style: none;
+    margin:0px;
+    padding:4px 75px 4px 75px;
+}
+#post_navbar .nav li a {
+ 	font-size:16px;
+    color:#000;
+    font-family:Arial, Helvetica, sans-serif;
+    text-decoration:none;
+}
+#post_navbar .nav li a:hover {
+    color:#273f5e;
+}
+#post_navbar .nav .divider {
+	width:1px;
+    height: 26px;
+    background:#000;
+}
+#banners {
+    width:934px; 
+    height:85px;
+    float:left;
+}
+#banners .associated {
+    margin: 10px 0px 0px 10px;
+    background:url(images/img_banner_assoc.png);
+    float:left;
+    width:445px;
+    height:66px;
+}
+#banners .regional {
+    margin: 10px 0px 0px 24px;
+    background:url(images/img_banner_reg.png);
+    width:445px;
+    height:66px;
+    float:left;
+}
+#matchups {
+ 	width:934px; 
+    height:445px;
+    float:left; 
+}
+.matchup_banners {
+    float:left;
+    width: 225px;
+    height: 415px;
+    margin-right:8px;
+}
+.chmps .matchup_banners {
+    float:left;
+    width: 450px;
+    height: 415px;
+}
+.chmps .matchup_banners:first-child { 
+    margin-right:24px;
+}
+.chmps .matchup_box {
+    float:left;
+    width:450px;
+    height: 244px;
+    border:5px solid #636363;
+}
+.chmps .inner_box {
+    width: 441px;
+    height:235px;
+    border:1px solid #6b5c3f;
+    background: #c1b38d;
+    margin:3px 4px 3px 4px;
+}
+.chmps .titles {
+ 	width: 442px;
+    height:24px;
+    margin:4px 0px 0px 0px;   
+    padding: 4px 0 4px 0;
+    border-bottom:1px solid #6b5c3f;
+    text-align:center;
+}
+.chmps .titles a {
+ 	font-family:"MS Sans Serif", Arial, sans-serif;
+    font-weight:bold;
+    font-size: 24px;
+    line-height:18px;
+    color: #6b5c3f; 
+    text-decoration:none;
+}
+.chmps .smallpic {
+    width: 440px;
+    height:88px;
+    margin:0px;   
+    padding: 0px;
+    border-bottom:1px solid #6b5c3f;
+}
+.chmps .details {
+    width: 424px;
+    margin:0px;   
+    padding: 6px 8px 3px 8px;
+    text-align:left;
+    color:#000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:13px;
+}
+.matchup_box {
+    float:left;
+    width:215px;
+    height: 296px;
+    border-top:5px solid #636363;
+    border-left:5px solid #636363;
+    border-right:5px solid #636363;
+}
+.inner_box {
+    width: 207px;
+    border:1px solid #6b5c3f;
+    background: #c1b38d;
+    margin:3px 4px 3px 4px;
+}
+.titles {
+ 	width: 207px;
+    margin:4px 0px 0px 0px;   
+    padding: 0 0 4px 0;
+    border-bottom:1px solid #6b5c3f;
+    text-align:center;
+}
+.titles a {
+ 	font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-weight:bold;
+    font-size: 16px;
+    line-height:18px;
+    color: #393939; 
+    text-decoration:none;
+}
+.smallpic {
+    width: 207px;
+    margin:0px;   
+    padding: 0px;
+    border-bottom:1px solid #6b5c3f;
+}
+.h1 		{ background-color:#152540;text-align:right;padding-right:4px; }
+.h1_l		{ color:#fff;text-align:left;font-weight:bold; font-size:16px; background: rgb(63,76,107);
+background: -moz-linear-gradient(top,  rgba(63,76,107,1) 0%, rgba(96,108,136,1) 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(63,76,107,1)), color-stop(100%,rgba(96,108,136,1)));
+background: -webkit-linear-gradient(top,  rgba(63,76,107,1) 0%,rgba(96,108,136,1) 100%);
+background: -o-linear-gradient(top,  rgba(63,76,107,1) 0%,rgba(96,108,136,1) 100%);
+background: -ms-linear-gradient(top,  rgba(63,76,107,1) 0%,rgba(96,108,136,1) 100%);
+background: linear-gradient(top,  rgba(63,76,107,1) 0%,rgba(96,108,136,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#606c88',GradientType=0 );
+
+}
+.details {
+    width: 191px;
+    margin:0px;   
+    padding: 6px 8px 3px 8px;
+    text-align:left;
+    color:#000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:13px;
+}
+.bar_ws {
+	height:14px; padding:6px;
+	background: #133351; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzEzMzM1MSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY0JSIgc3RvcC1jb2xvcj0iIzRjODFjYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5OWIwZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top, #133351 0%, #4c81cc 64%, #99b0e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#133351), color-stop(64%,#4c81cc), color-stop(100%,#99b0e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* IE10+ */
+background: linear-gradient(top, #133351 0%,#4c81cc 64%,#99b0e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#133351', endColorstr='#99b0e5',GradientType=0 ); /* IE6-8 */
+}
+.bar_cs {
+	height:14px; padding:6px;
+	background: rgb(40,52,59);
+background: -moz-linear-gradient(top,  rgba(40,52,59,1) 0%, rgba(130,140,149,1) 64%, rgba(181,189,200,1) 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(40,52,59,1)), color-stop(64%,rgba(130,140,149,1)), color-stop(100%,rgba(181,189,200,1)));
+background: -webkit-linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+background: -o-linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+background: -ms-linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+background: linear-gradient(top,  rgba(40,52,59,1) 0%,rgba(130,140,149,1) 64%,rgba(181,189,200,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28343b', endColorstr='#b5bdc8',GradientType=0 );
+
+}
+.details h3 {
+    color:#860d0d;
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:16px;
+    line-height:18px;
+    font-weight:bold;
+    display:inline;
+}
+.details .series {
+ 	font-weight: bold;
+}
+.chmps .matchup_logos {
+    width:450px;
+}
+.align-right {
+    text-align:right;
+}
+.matchupTitles {
+    color : Maroon;
+    font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size : 12px;
+    font-weight : bold;
+    color:#08498B;
+}
+.teamsTitles {
+    color : Maroon;
+    font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size : 9pt;
+    font-weight : bold;
+    color:#800000;
+}
+.h2_l a.menu {
+	color:0x000060;
+}
+.stats_links a.menu {
+	color:#009;
+}
+.stats_links a.menu:hover {
+	color:#900;
+}
