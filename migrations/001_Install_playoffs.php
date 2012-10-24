@@ -28,6 +28,8 @@ class Migration_Install_playoffs extends Migration {
 		
 		$this->dbforge->add_key('id', true);
 		$this->dbforge->create_table('playoffs_round_details');
+		
+		$this->db->query("UPDATE {$prefix}sql_tables SET required = 1 WHERE name = 'league_playoffs' OR name = 'league_playoff_fixtures' OR name = 'team_record' OR name = 'sub_leagues'");
 			
 	}
 	
@@ -47,6 +49,9 @@ class Migration_Install_playoffs extends Migration {
 		$this->db->query("DELETE FROM {$prefix}permissions WHERE (name = 'Playoffs.Settings.Manage')");
 		
 		$this->dbforge->drop_table('playoffs_round_details');
+		
+		$this->db->query("UPDATE {$prefix}sql_tables SET required = 0 WHERE name = 'league_playoffs' OR name = 'league_playoff_fixtures' OR name = 'team_record' OR name = 'sub_leagues'");
+		
 	}
 	
 	//--------------------------------------------------------------------

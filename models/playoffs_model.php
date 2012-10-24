@@ -97,7 +97,7 @@ class Playoffs_model extends BF_Model
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $teams = $teams + array($row->team_id => array('team_id' => $row->team_id, 'abbr' => $row->abbr, 'name' => $row->name, 'nickname' => $row->nickname,
-                    'city' => $row->name, 'sub_league_id' => $row->sub_league_id, 'logo' => $row->logo_file, 'text_color_id' => $row->text_color_id,
+                    'city' => $row->name, 'sub_league_id' => $row->sub_league_id, 'logo_file' => $row->logo_file, 'text_color_id' => $row->text_color_id,
                     'background_color_id' => $row->background_color_id, 'w' => $row->w, 'l' => $row->l, 'pos' => $row->pos));
             }
         }
@@ -157,7 +157,6 @@ class Playoffs_model extends BF_Model
             $pcnt = 0;
             $rnd = 0;
             foreach ($games as $game_id => $row) {
-                $gid = $game_id;
                 $hid = $row['home_team'];
                 $aid = $row['away_team'];
                 $minTID = min($aid, $hid);
@@ -188,10 +187,12 @@ class Playoffs_model extends BF_Model
                     else {
                         $series[$serID][$aid]['w'] = $series[$serID][$aid]['w'] + 1;
                     }
-                    $gidList .= ",$gid";
+                    if (!empty($gidList)) { $gidList .= ","; }
+                    $gidList .= $game_id;
                     $pcnt += 1;
                 }
             }
+            echo("game id list = ".$gidList."<br />");
             $return_arr = array($teams, $rounds, $series, $gidList, $pcnt);
         }
         return $return_arr;

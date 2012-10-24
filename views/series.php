@@ -11,8 +11,8 @@ if (!isset($series) || !is_array($series) || count($series) == 0) {
     $homeScore = $series[$serID][$home_team_id]['w'];
     $awayScore = $series[$serID][$away_team_id]['w'];
     $word = " vs ";
-    if ($pcnt == sizeof($games)) {
-        $words = " defeat ";
+    if ($pcnt == $game_count) {
+        $word = " defeats ";
         if ($homeScore == 0 || $awayScore == 0) $word = " sweep ";
     }
     ?>
@@ -42,25 +42,40 @@ if (!isset($series) || !is_array($series) || count($series) == 0) {
         </div>
 
         <br clear='all' /><br />
-
+        <?php
+        if ($teams[$away_team_id]['text_color_id'] == "#FFFFFF")     {
+            $away_bkgd = $teams[$away_team_id]['text_color_id'];
+            $away_text = $teams[$away_team_id]['background_color_id'];
+        } else {
+            $away_bkgd = $teams[$away_team_id]['background_color_id'];
+            $away_text = $teams[$away_team_id]['text_color_id'];
+        }
+        if ($teams[$home_team_id]['text_color_id'] == "#FFFFFF")     {
+            $home_bkgd = $teams[$home_team_id]['text_color_id'];
+            $home_text = $teams[$home_team_id]['background_color_id'];
+        } else {
+            $home_bkgd = $teams[$home_team_id]['background_color_id'];
+            $home_text = $teams[$home_team_id]['text_color_id'];
+        }
+        ?>
         <div class="row-fluid">
             <div class="span12">
                 <div class="matchup">
-                    <div class="matchbox" style="background:<?php echo($teams[$away_team_id]['background_color_id']); ?>;">
-                        <div class="matchlogo logoleft" style="background: url(<?php echo($settings['ootp.team_logo_path'].$teams[$away_team_id]['logo']); ?>) center left no-repeat;"></div>
-                        <div class="matchscore" style="float:right;color:<?php echo($teams[$away_team_id]['text_color_id']); ?>;"><?php echo($series[$serID][$away_team_id]['w']);?></div>
-                        <div class="matchteam" style="float:right;text-align:right;"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$away_team_id);?>.html" style="color:<?php echo($teams[$away_team_id]['text_color_id']); ?>;"><?php echo($teams[$away_team_id]['name']); ?></a></div>
+                    <div class="matchbox" style="background:<?php echo($away_bkgd); ?>;">
+                        <div class="matchlogo logoleft" style="background: url(<?php echo($settings['ootp.team_logo_path'].$teams[$away_team_id]['logo_file']); ?>) center left no-repeat;"></div>
+                        <div class="matchscore" style="float:right;color:<?php echo($away_text); ?>;"><?php echo($series[$serID][$away_team_id]['w']);?></div>
+                        <div class="matchteam" style="float:right;text-align:right;"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$away_team_id);?>.html" style="color:<?php echo($away_text); ?>;"><?php echo($teams[$away_team_id]['name']); ?></a></div>
                     </div>
                     <div style="float:left; padding-top:32px;height:25px;width:55px;text-align:center" class="icgb">vs.</div>
-                    <div class="matchbox" style="background: <?php echo($teams[$home_team_id]['background_color_id']);?>;">
-                        <div class="matchlogo logoright" style="background:url(<?php echo($settings['ootp.team_logo_path'].$teams[$home_team_id]['logo']); ?>) center right no-repeat; "></div>
-                        <div class="matchscore" style="float:left;color:<?php echo($teams[$home_team_id]['text_color_id']); ?>;"><?php echo($series[$serID][$home_team_id]['w']);?></div>
-                        <div class="matchteam" style="float:left;text-align:left;"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$home_team_id);?>.html" style="color:<?php echo($teams[$home_team_id]['text_color_id']); ?>;"><?php echo($teams[$home_team_id]['name']); ?></a></div>
+                    <div class="matchbox" style="background: <?php echo($home_bkgd);?>;">
+                        <div class="matchlogo logoright" style="background:url(<?php echo($settings['ootp.team_logo_path'].$teams[$home_team_id]['logo_file']); ?>) center right no-repeat; "></div>
+                        <div class="matchscore" style="float:left;color:<?php echo($home_text); ?>;"><?php echo($series[$serID][$home_team_id]['w']);?></div>
+                        <div class="matchteam" style="float:left;text-align:left;"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$home_team_id);?>.html" style="color:<?php echo($home_text); ?>;"><?php echo($teams[$home_team_id]['name']); ?></a></div>
                     </div>
                 <br clear='all' />
-                    <div class="matchrecord" style="background-color:<?php echo($teams[$away_team_id]['text_color_id']); ?>;color:<?php echo($teams[$away_team_id]['background_color_id']); ?>;"><?php echo(ordinal_suffix($teams[$away_team_id]['pos']));?> place, <?php echo($teams[$away_team_id]['w']. " - ".$teams[$away_team_id]['l']); ?></div>
+                    <div class="matchrecord" style="background-color:<?php echo($away_text); ?>;color:<?php echo($away_bkgd); ?>;"><?php echo(ordinal_suffix($teams[$away_team_id]['pos']));?> place, <?php echo($teams[$away_team_id]['w']. " - ".$teams[$away_team_id]['l']); ?></div>
                     <div style="float:left; width:55px; text-align:center">&nbsp;</div>
-                    <div class="matchrecord" style="background-color:<?php echo($teams[$home_team_id]['text_color_id']); ?>;color:<?php echo($teams[$home_team_id]['background_color_id']); ?>;text-align:right;"><?php echo(ordinal_suffix($teams[$home_team_id]['pos']));?> place, <?php echo($teams[$home_team_id]['w']. " - ".$teams[$home_team_id]['l']); ?></div>
+                    <div class="matchrecord" style="background-color:<?php echo($home_text); ?>;color:<?php echo($home_bkgd); ?>;text-align:right;"><?php echo(ordinal_suffix($teams[$home_team_id]['pos']));?> place, <?php echo($teams[$home_team_id]['w']. " - ".$teams[$home_team_id]['l']); ?></div>
                     <br clear="all" />
                 </div>
             </div>
