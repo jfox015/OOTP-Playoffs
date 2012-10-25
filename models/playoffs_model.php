@@ -192,7 +192,7 @@ class Playoffs_model extends BF_Model
                     $pcnt += 1;
                 }
             }
-            echo("game id list = ".$gidList."<br />");
+            //echo("game id list = ".$gidList."<br />");
             $return_arr = array($teams, $rounds, $series, $gidList, $pcnt);
         }
         return $return_arr;

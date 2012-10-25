@@ -19,7 +19,7 @@ class Playoffs extends Front_Controller {
 	
 	public function index()
 	{
-		Template::render();
+		redirect('/playoffs/summary/');
 	}
 	
 	public function summary() {
@@ -113,23 +113,29 @@ class Playoffs extends Front_Controller {
 				$teams = $this->lastsim_model->get_team_situational_records($league_id, $teams, $sTeams[0], $sTeams[1]);
 				
 				// BOXSCORES		
-				$data = array();
-				$data['boxscores'] = $this->lastsim_model->get_playoff_box_scores($league_id, $sTeams[0], $sTeams[1]);
-				$data['gamecast_links'] = in_array('gamecast',module_list(true));
-				$data['settings'] = $settings;
-				$data['teams'] = $teams;
-				Template::set('boxscores',$this->load->view('lastsim/loop_boxscores',$data,true));
-				unset($data);
+				$box = $this->lastsim_model->get_playoff_box_scores($league_id, $sTeams[0], $sTeams[1]);
+				if (isset($box) && is_array($box) && count($box)) {
+					$data = array();
+					$data['boxscores'] = $box ;
+					$data['gamecast_links'] = in_array('gamecast',module_list(true));
+					$data['settings'] = $settings;
+					$data['teams'] = $teams;
+					Template::set('boxscores',$this->load->view('lastsim/loop_boxscores',$data,true));
+					unset($data);
+				}
 				
 				// UNPLAYED GAMES	
-				$data = array();
-				$data['settings'] = $settings;
-                $data['teams'] = $teams;
-                $data['team_scores'] = $this->lastsim_model->get_situational_scoring($sTeams[0],$league_id);
-				$data['team_scores'] = $this->lastsim_model->get_situational_scoring($sTeams[1],$league_id, $data['team_scores']);
-				$data['upcoming'] = $this->lastsim_model->get_upcoming_playoff_games($league_id, $sTeams[0], $sTeams[1]);
-				Template::set('upcoming',$this->load->view('lastsim/loop_upcoming',$data,true));
-				
+				$upcoming = $this->lastsim_model->get_upcoming_playoff_games($league_id, $sTeams[0], $sTeams[1]);
+				if (isset($upcoming) && is_array($upcoming) && count($upcoming)) {$data = array();
+					$data = array();
+					$data['settings'] = $settings;
+					$data['teams'] = $teams;
+					$data['team_scores'] = $this->lastsim_model->get_situational_scoring($sTeams[0],$league_id);
+					$data['team_scores'] = $this->lastsim_model->get_situational_scoring($sTeams[1],$league_id, $data['team_scores']);
+					$data['upcoming'] = $upcoming;
+					Template::set('upcoming',$this->load->view('lastsim/loop_upcoming',$data,true));
+					unset($data);
+				}
 				
 				// TOP PERFORMERS
 				$top_batters = $this->lastsim_model->get_top_batters_by_gamelist($gidList);
@@ -142,36 +148,39 @@ class Playoffs extends Front_Controller {
 				$this->load->library('open_sports_toolkit/stats');
 				Stats::init('baseball','ootp13');
             
-				$headers = array (
+				$stat_classes = array (
 					'Batting'=>stats_class(TYPE_OFFENSE, CLASS_COMPLETE, array('NAME')),
 					'Pitching'=>stats_class(TYPE_SPECIALTY,CLASS_COMPLETE, array('NAME'))
 				);
+				$headers = array (
+					'Batting' => Stats::get_stats_fields(TYPE_OFFENSE, $stat_classes['Batting'], 'lang'),
+					'Pitching' => Stats::get_stats_fields(TYPE_SPECIALTY, $stat_classes['Pitching'], 'lang')
+				);
 				$stats= array (
 					'home' => array(
-						'Batting'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$headers['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$headers['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1)),
-						'Pitching'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$headers['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$headers['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1))
+						'Batting'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
+						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1)),
+						'Pitching'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
+						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1))
 					),
 					'away' => array (
-						'Batting'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$headers['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$headers['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1)),
-						'Pitching'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$headers['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$headers['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1))
+						'Batting'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
+						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1)),
+						'Pitching'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
+						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1))
 					)
 				);
 				// RENDER STATS TO VIEW CODE
-				$home_name = $teams[$sTeams[0]]['name']." ".$sTeams[0]['nickname'];
-				$away_name = $teams[$sTeams[1]]['name']." ".$sTeams[1]['nickname'];
+				$home_name = $teams[$sTeams[0]]['name']." ".$teams[$sTeams[0]]['nickname'];
+				$away_name = $teams[$sTeams[1]]['name']." ".$teams[$sTeams[1]]['nickname'];
 				
 				$batting = array(
-					//'home' => $stats['home']['Batting'],
-					'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'type'=>'Batting','records'=>$stats['home']['Batting'], 'headers'=>$headers, 'totals' =>$stats['home']['Batting_totals']), true),
-					'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'type'=>'Batting','records'=>$stats['away']['Batting'], 'headers'=>$headers, 'totals' =>$stats['away']['Batting_totals']), true),
+					'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'type'=>'Batting','records'=>$stats['home']['Batting'], 'headers'=>$headers['Batting'], 'totals' =>$stats['home']['Batting_totals']), true),
+					'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'type'=>'Batting','records'=>$stats['away']['Batting'], 'headers'=>$headers['Batting'], 'totals' =>$stats['away']['Batting_totals']), true),
 				);
 				$pitching = array(
-					'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'type'=>'Pitching','records'=>$stats['home']['Pitching'], 'headers'=>$headers, 'totals' =>$stats['home']['Pitching_totals']), true),
-					'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'type'=>'Pitching','records'=>$stats['away']['Pitching'], 'headers'=>$headers, 'totals' =>$stats['away']['Pitching_totals']), true),
+					'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'type'=>'Pitching','records'=>$stats['home']['Pitching'], 'headers'=>$headers['Pitching'], 'totals' =>$stats['home']['Pitching_totals']), true),
+					'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'type'=>'Pitching','records'=>$stats['away']['Pitching'], 'headers'=>$headers['Pitching'], 'totals' =>$stats['away']['Pitching_totals']), true),
 				);
 				
 
@@ -197,12 +206,12 @@ class Playoffs extends Front_Controller {
 				
                 Assets::add_module_css('playoffs','playoffs.css');
                 Assets::add_module_css('playoffs','series.css');
+                Assets::add_module_css('lastsim','box_styles.css');
 
             }
         }   else {
             Template::set('outMess',"<b>Error:</b> No series Id was provided or the series was not found.");
         }
-        $this->load->helper('open_sports_toolkit/general');
 
         Template::render();
 	}
