@@ -20,7 +20,10 @@ class Playoffs_model extends BF_Model
     /*-----------------------------------------------
      /	PUBLIC FUNCTIONS
      /----------------------------------------------*/
-    /**
+
+	//--------------------------------------------------------------------
+	
+	/**
 	 * C'TOR.
 	 *
 	 * CReates a new instance of Playoffs_model.
@@ -32,10 +35,12 @@ class Playoffs_model extends BF_Model
         parent::__construct();
 		// Since this model doesn't extend the base model in the open sports toolkit, we do this manually
         $this->dbprefix = $this->db->dbprefix;
-        $this->use_prefix = ($this->settings_lib->item('ootp.use_db_prefix') == 1) ? true : false;
+        $this->use_prefix = ($this->settings_lib->item('osp.use_db_prefix') == 1) ? true : false;
     }
 
-    /**
+	//--------------------------------------------------------------------
+	
+	/**
 	 * LOAD PLAYOFF STRUCTURE.
 	 *
 	 * This function takes the listings of all teams for the selected league and their information.
@@ -78,6 +83,9 @@ class Playoffs_model extends BF_Model
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
         return $struct[0];
     }
+
+	//--------------------------------------------------------------------
+	
 	/**
 	 * GET TEAM INFORMATION.
 	 *
@@ -105,6 +113,9 @@ class Playoffs_model extends BF_Model
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
         return $teams;
     }
+
+	//--------------------------------------------------------------------
+	
 	/**
 	 * GET PLAYOFF GAMES.
 	 *
@@ -135,6 +146,9 @@ class Playoffs_model extends BF_Model
         if (!$this->use_prefix) $this->db->dbprefix = $this->dbprefix;
         return $games;
     }
+
+	//--------------------------------------------------------------------
+	
 	/**
 	 * GENERATE PLAYOFF DATA.
 	 *
@@ -153,7 +167,7 @@ class Playoffs_model extends BF_Model
         $return_arr = array();
         if ($games !== false && is_array($games) && count($games)) {
 
-            $gidList = '';
+            $gidList = array();
             $pcnt = 0;
             $rnd = 0;
             foreach ($games as $game_id => $row) {
@@ -187,8 +201,8 @@ class Playoffs_model extends BF_Model
                     else {
                         $series[$serID][$aid]['w'] = $series[$serID][$aid]['w'] + 1;
                     }
-                    if (!empty($gidList)) { $gidList .= ","; }
-                    $gidList .= $game_id;
+                    //if (!empty($gidList)) { $gidList .= ","; }
+                    array_push($gidList, intval($game_id));
                     $pcnt += 1;
                 }
             }

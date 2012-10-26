@@ -5,8 +5,6 @@ if (!isset($series) || !is_array($series) || count($series) == 0) :
     endif;
 else :
 
-    $text = '';
-    $gidList = trim($gidList, ",");
     $fldName = "round_names" . (intval($rnd) - 1);
     $homeScore = $series[$serID][$home_team_id]['w'];
     $awayScore = $series[$serID][$away_team_id]['w'];
@@ -36,7 +34,7 @@ else :
             </b>
 			<br />
             <?php echo anchor('/playoffs/summary/'.$league_id, 'Back to Summary page', array('class'=>'menu')).'<br />';
-            echo ('<a class="menu" href="'.$settings['ootp.asset_url'].'league_'.$league_id.'_index.html">Post Season Home</a>');
+            echo ('<a class="menu" href="'.$settings['osp.asset_url'].'league_'.$league_id.'_index.html">Post Season Home</a>');
             ?>
             </div>
         </div>
@@ -64,15 +62,15 @@ else :
             <div class="span12">
                 <div class="matchup">
                     <div class="matchbox" style="background:<?php echo($away_bkgd); ?>;">
-                        <div class="matchlogo logoleft" style="background: url(<?php echo($settings['ootp.team_logo_url'].$teams[$away_team_id]['logo_file']); ?>) center left no-repeat;"></div>
+                        <div class="matchlogo logoleft" style="background: url(<?php echo($settings['osp.team_logo_url'].$teams[$away_team_id]['logo_file']); ?>) center left no-repeat;"></div>
                         <div class="matchscore" style="float:right;color:<?php echo($away_text); ?>;"><?php echo($series[$serID][$away_team_id]['w']);?></div>
-                        <div class="matchteam" style="float:right;text-align:right;"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$away_team_id);?>.html" style="color:<?php echo($away_text); ?>;"><?php echo($teams[$away_team_id]['name']); ?></a></div>
+                        <div class="matchteam" style="float:right;text-align:right;"><a href="<?php echo($settings['osp.asset_url'].'teams/team_'.$away_team_id);?>.html" style="color:<?php echo($away_text); ?>;"><?php echo($teams[$away_team_id]['name']); ?></a></div>
                     </div>
                     <div style="float:left; padding-top:32px;height:25px;width:55px;text-align:center" class="icgb">vs.</div>
                     <div class="matchbox" style="background: <?php echo($home_bkgd);?>;">
-                        <div class="matchlogo logoright" style="background:url(<?php echo($settings['ootp.team_logo_url'].$teams[$home_team_id]['logo_file']); ?>) center right no-repeat; "></div>
+                        <div class="matchlogo logoright" style="background:url(<?php echo($settings['osp.team_logo_url'].$teams[$home_team_id]['logo_file']); ?>) center right no-repeat; "></div>
                         <div class="matchscore" style="float:left;color:<?php echo($home_text); ?>;"><?php echo($series[$serID][$home_team_id]['w']);?></div>
-                        <div class="matchteam" style="float:left;text-align:left;"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$home_team_id);?>.html" style="color:<?php echo($home_text); ?>;"><?php echo($teams[$home_team_id]['name']); ?></a></div>
+                        <div class="matchteam" style="float:left;text-align:left;"><a href="<?php echo($settings['osp.asset_url'].'teams/team_'.$home_team_id);?>.html" style="color:<?php echo($home_text); ?>;"><?php echo($teams[$home_team_id]['name']); ?></a></div>
                     </div>
                 <br clear='all' />
                     <div class="matchrecord" style="background-color:<?php echo($away_text); ?>;color:<?php echo($away_bkgd); ?>;"><?php echo(ordinal_suffix($teams[$away_team_id]['pos']));?> place, <?php echo($teams[$away_team_id]['w']. " - ".$teams[$away_team_id]['l']); ?></div>
@@ -106,6 +104,7 @@ else :
             <div class="span6">
 			<?php if(isset($top_perf) && is_array($top_perf) && count($top_perf)) : ?>
             <h3>Top Performers</h3>
+			<br />
             <?php
 				if (isset($top_perf['batters'])) :
 					echo($top_perf['batters']);
@@ -133,6 +132,9 @@ else :
                 endif;
                 if (isset($batting['home'])) :
                     echo($batting['home']);
+                endif;
+				if (isset($batting['totals'])) :
+                    echo($batting['totals']);
                 endif;
                 ?>
                 <!-- TEAM PITCHING -->

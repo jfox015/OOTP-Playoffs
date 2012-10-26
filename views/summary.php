@@ -65,12 +65,12 @@ else :
 				?>
                 <table cellpadding="2" cellspacing="0" style="width:98%;margin:10px;">
 				<tr>
-					<td style="padding:1px;width:30%;text-align:center;"><img src="<?php echo($settings['ootp.team_logo_url'].$teams[$aid]['logo_file']); ?>" width="150" height="150" /><br />
+					<td style="padding:1px;width:30%;text-align:center;"><img src="<?php echo($settings['osp.team_logo_url'].$teams[$aid]['logo_file']); ?>" width="150" height="150" /><br />
 					<span style="font-size:large; font-weight:bold;"><?php echo($teams[$aid]['name']); ?></span><br /> 
 					<?php echo(ordinal_suffix($teams[$aid]['pos'])); ?> place, <?php echo($teams[$aid]['w']."-".$teams[$aid]['l']); ?><br />
-					<a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$aid.'.html'); ?>" class="teamLinks">Team Home</a><br />
-					<a href="<?php echo($settings['ootp.asset_url'].'history/team_year_'.$aid.'_'.$year.'.html'); ?>" class="teamLinks">Roster</a><br />
-					<a href="<?php echo($settings['ootp.asset_url'].'history/team_'.$aid.'_index.html'); ?>" class="teamLinks">History</a></td>
+					<a href="<?php echo($settings['osp.asset_url'].'teams/team_'.$aid.'.html'); ?>" class="teamLinks">Team Home</a><br />
+					<a href="<?php echo($settings['osp.asset_url'].'history/team_year_'.$aid.'_'.$year.'.html'); ?>" class="teamLinks">Roster</a><br />
+					<a href="<?php echo($settings['osp.asset_url'].'history/team_'.$aid.'_index.html'); ?>" class="teamLinks">History</a></td>
 
 					<td style="padding:8px;width:40%;text-align:left;">
 						<h2>
@@ -131,12 +131,12 @@ else :
 					</td>
 
 					<td style='"padding:1px;width:30%;text-align:center;">
-						<img src="<?php echo($settings['ootp.team_logo_url'] . $teams[$hid]['logo_file']); ?>" width="150" height="150" /><br/>
+						<img src="<?php echo($settings['osp.team_logo_url'] . $teams[$hid]['logo_file']); ?>" width="150" height="150" /><br/>
 						<span style="font-size:large; font-weight:bold;"><?php echo($teams[$hid]['name']); ?></span><br />
 						<?php echo(ordinal_suffix($teams[$hid]['pos'])); ?> place, <?php echo($teams[$hid]['w']."-".$teams[$hid]['l']); ?><br />
-						<a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$hid.'.html'); ?>" class="teamLinks">Team Home</a><br />
-						<a href="<?php echo($settings['ootp.asset_url'].'history/team_year_'.$hid.'_'.$year.'.html'); ?>" class="teamLinks">Roster</a><br />
-						<a href="<?php echo($settings['ootp.asset_url'].'history/team_'.$hid.'_index.html'); ?>" class="teamLinks">History</a>
+						<a href="<?php echo($settings['osp.asset_url'].'teams/team_'.$hid.'.html'); ?>" class="teamLinks">Team Home</a><br />
+						<a href="<?php echo($settings['osp.asset_url'].'history/team_year_'.$hid.'_'.$year.'.html'); ?>" class="teamLinks">Roster</a><br />
+						<a href="<?php echo($settings['osp.asset_url'].'history/team_'.$hid.'_index.html'); ?>" class="teamLinks">History</a>
 						</td>
 					</td>
 				</tr>
@@ -209,14 +209,14 @@ else :
 						</td>
                     </tr>
                     <tr>
-						<td style="padding:1px;width:44px;border-right:1px solid #999999;"><img src="<?php echo($settings['ootp.team_logo_url'] . $teams[$aid]['logo_file']); ?>" width="40" height="40"></td>
-						<td class="sl" width="175"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$aid.'.html'); ?>"><?php echo($teams[$aid]['name']); ?></a></td>
+						<td style="padding:1px;width:44px;border-right:1px solid #999999;"><img src="<?php echo($settings['osp.team_logo_url'] . $teams[$aid]['logo_file']); ?>" width="40" height="40"></td>
+						<td class="sl" width="175"><a href="<?php echo($settings['osp.asset_url'].'teams/team_'.$aid.'.html'); ?>"><?php echo($teams[$aid]['name']); ?></a></td>
 						<td class="sl" width="175" style="text-align:right;padding-right:5px;"><?php echo(ordinal_suffix($teams[$aid]['pos']) . " place, " . $teams[$aid]['w'] . "-" . $teams[$aid]['l'] ); ?></td>
 						<td class="icgb" width="50"><?php echo($series[$serID][$aid]['w']); ?></td>
                     </tr>
                     <tr>
-						<td style="padding:1px;width:44px;border-right:1px solid #999999;"><img src="<?php echo($settings['ootp.team_logo_url'] . $teams[$hid]['logo_file']); ?>" width="40" height="40"></td>
-						<td class="sl" width="175" style="border-top-width:1px; border-top-style:solid; border-top-color:#999999;"><a href="<?php echo($settings['ootp.asset_url'].'teams/team_'.$hid.'.html'); ?>"><?php echo($teams[$hid]['name']); ?></a></td>
+						<td style="padding:1px;width:44px;border-right:1px solid #999999;"><img src="<?php echo($settings['osp.team_logo_url'] . $teams[$hid]['logo_file']); ?>" width="40" height="40"></td>
+						<td class="sl" width="175" style="border-top-width:1px; border-top-style:solid; border-top-color:#999999;"><a href="<?php echo($settings['osp.asset_url'].'teams/team_'.$hid.'.html'); ?>"><?php echo($teams[$hid]['name']); ?></a></td>
 						<td class="sl" width="175" style="text-align:right;padding-right:5px;border-top-width:1px; border-top-style:solid; border-top-color:#999999;"><?php echo(ordinal_suffix($teams[$hid]['pos']) . " place, " . $teams[$hid]['w'] . "-" . $teams[$hid]['l'] ); ?></td>
 						<td class="icgb" width="50" style="border-top-width:1px; border-top-style:solid; border-top-color:#999999;"><?php echo($series[$serID][$hid]['w']); ?></td>
                     </tr>

@@ -34,3 +34,8 @@ h3 {
 td.icgb 	{ background-color:#E3E3E3;font-weight:bold;text-align:center;color:#000000; border-left-width:1px; border-left-style:solid; border-left-color:#E3E3E3; border-top-width:1px; border-top-style:solid; border-top-color:#E3E3E3; }
 .s1 		{ font-size:13px;background-color:#E3E3E3;font-weight:normal;text-align:right;color:#000000;padding-right:4px; }
 .s2 		{ font-size:13px;background-color:#C2C2C2;font-weight:normal;text-align:right;color:#000000;padding-right:4px; }
+
+.stats-table table th, .stats-table table td { padding: 3px; margin:0px; font-size:12px;}
+.stats-table table td.stat { text-align:right; }
+.stats-table table th.stat { text-align:center; }
+.stats-table table td.totals { font-weight:bold; background: #dedede; }

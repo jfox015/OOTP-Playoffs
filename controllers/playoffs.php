@@ -136,18 +136,18 @@ class Playoffs extends Front_Controller {
 					Template::set('upcoming',$this->load->view('lastsim/loop_upcoming',$data,true));
 					unset($data);
 				}
-				
-				// TOP PERFORMERS
-				$top_batters = $this->lastsim_model->get_top_batters_by_gamelist($gidList);
-				$top_perf['batters'] = $this->load->view('lastsim/top_performers',array('performers'=>$top_batters,'player_type'=>0, 'teams'=>$teams), true);
-				
-				$top_pitchers = $this->lastsim_model->get_top_pitchers_by_gamelist($gidList);
-				$top_perf['pitchers'] = $this->load->view('lastsim/top_performers',array('performers'=>$top_pitchers,'player_type'=>1, 'teams'=>$teams), true);
-				
 				// BATTING AND PITCHING STATS
 				$this->load->library('open_sports_toolkit/stats');
-				Stats::init('baseball','ootp13');
+				Stats::init($settings['osp.game_sport'],$settings['osp.game_source']);
             
+				// TOP PERFORMERS
+				$top_batters = $this->lastsim_model->get_top_batters_by_gamelist($gidList,$pcnt, SPLIT_PLAYOFFS);
+				$top_perf['batters'] = $this->load->view('lastsim/top_performers',array('performers'=>$top_batters,'player_type'=>0, 'teams'=>$teams), true);
+				
+				$top_pitchers = $this->lastsim_model->get_top_pitchers_by_gamelist($gidList,$pcnt, SPLIT_PLAYOFFS);
+				$top_perf['pitchers'] = $this->load->view('lastsim/top_performers',array('performers'=>$top_pitchers,'player_type'=>1, 'teams'=>$teams), true);
+				
+				
 				$stat_classes = array (
 					'Batting'=>stats_class(TYPE_OFFENSE, CLASS_COMPLETE, array('NAME')),
 					'Pitching'=>stats_class(TYPE_SPECIALTY,CLASS_COMPLETE, array('NAME'))
@@ -158,16 +158,16 @@ class Playoffs extends Front_Controller {
 				);
 				$stats= array (
 					'home' => array(
-						'Batting'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1)),
-						'Pitching'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1))
+						'Batting'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList)),
+						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList,'total'=>1)),
+						'Pitching'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList)),
+						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList,'total'=>1))
 					),
 					'away' => array (
-						'Batting'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1)),
-						'Pitching'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS)),
-						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_SEASON,array('split'=>SPLIT_PLAYOFFS,'total'=>1))
+						'Batting'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList)),
+						'Batting_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList,'total'=>1)),
+						'Pitching'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList)),
+						'Pitching_totals'=>$this->teams_model->get_team_stats($sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList,'total'=>1))
 					)
 				);
 				// RENDER STATS TO VIEW CODE
@@ -175,6 +175,7 @@ class Playoffs extends Front_Controller {
 				$away_name = $teams[$sTeams[1]]['name']." ".$teams[$sTeams[1]]['nickname'];
 				
 				$batting = array(
+					'totals' => $stats['home']['Batting_totals'],
 					'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'type'=>'Batting','records'=>$stats['home']['Batting'], 'headers'=>$headers['Batting'], 'totals' =>$stats['home']['Batting_totals']), true),
 					'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'type'=>'Batting','records'=>$stats['away']['Batting'], 'headers'=>$headers['Batting'], 'totals' =>$stats['away']['Batting_totals']), true),
 				);
@@ -183,7 +184,6 @@ class Playoffs extends Front_Controller {
 					'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'type'=>'Pitching','records'=>$stats['away']['Pitching'], 'headers'=>$headers['Pitching'], 'totals' =>$stats['away']['Pitching_totals']), true),
 				);
 				
-
 				Template::set('batting',$batting);
                 Template::set('pitching',$pitching);
                 Template::set('top_perf',$top_perf);
@@ -197,7 +197,6 @@ class Playoffs extends Front_Controller {
                 Template::set('serID',$series_id);
                 Template::set('home_team_id',$sTeams[0]);
                 Template::set('away_team_id',$sTeams[1]);
-                Template::set('gidList',$gidList);
                 Template::set('pcnt',$pcnt);
                 Template::set('rnd',$round);
                 Template::set('game_count',sizeof($games));
