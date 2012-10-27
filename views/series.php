@@ -8,16 +8,16 @@ else :
     $fldName = "round_names" . (intval($rnd) - 1);
     $homeScore = $series[$serID][$home_team_id]['w'];
     $awayScore = $series[$serID][$away_team_id]['w'];
-    $word = " vs ";
+    $word = lang('poff_match_vs');
     if ($pcnt == $game_count) :
-        $word = " defeats ";
-        if ($homeScore == 0 || $awayScore == 0) $word = " sweep ";
+        $word = lang('poff_match_defeats');
+        if ($homeScore == 0 || $awayScore == 0) $word = lang('poff_match_sweeps');
     endif;
     ?>
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span7">
-            <h1 style="display:inline;"><?php echo($playoffConfig[$fldName]); ?> Stats</h1>
+            <h1 style="display:inline;"><?php echo($playoffConfig[$fldName].' '.lang('poff_title_stats')); ?></h1>
             </div>
 
             <div class="span5 stats_links" style="text-align:right;">
@@ -26,15 +26,15 @@ else :
             <b>
             <?php
             if ($homeScore > $awayScore) {
-                echo($teams[$home_team_id]['nickname'] . $word . $teams[$away_team_id]['nickname'] . " " . $homeScore . "-" . $awayScore);
+                echo($teams[$home_team_id]['nickname'] .' '. $word .' '. $teams[$away_team_id]['nickname'] . " " . $homeScore . "-" . $awayScore);
             } else {
-                echo($teams[$away_team_id]['nickname'] . $word . $teams[$home_team_id]['nickname'] . " " . $awayScore . "-" . $homeScore);
+                echo($teams[$away_team_id]['nickname'] .' '. $word .' '. $teams[$home_team_id]['nickname'] . " " . $awayScore . "-" . $homeScore);
             }
             ?>
             </b>
 			<br />
-            <?php echo anchor('/playoffs/summary/'.$league_id, 'Back to Summary page', array('class'=>'menu')).'<br />';
-            echo ('<a class="menu" href="'.$settings['osp.asset_url'].'league_'.$league_id.'_index.html">Post Season Home</a>');
+            <?php echo anchor('/playoffs/summary/'.$league_id, lang('poff_link_summary'), array('class'=>'menu')).'<br />';
+            echo ('<a class="menu" href="'.$settings['osp.asset_url'].'league_'.$league_id.'_index.html">'.lang('poff_link_post_home').'</a>');
             ?>
             </div>
         </div>
@@ -73,9 +73,9 @@ else :
                         <div class="matchteam" style="float:left;text-align:left;"><a href="<?php echo($settings['osp.asset_url'].'teams/team_'.$home_team_id);?>.html" style="color:<?php echo($home_text); ?>;"><?php echo($teams[$home_team_id]['name']); ?></a></div>
                     </div>
                 <br clear='all' />
-                    <div class="matchrecord" style="background-color:<?php echo($away_text); ?>;color:<?php echo($away_bkgd); ?>;"><?php echo(ordinal_suffix($teams[$away_team_id]['pos']));?> place, <?php echo($teams[$away_team_id]['w']. " - ".$teams[$away_team_id]['l']); ?></div>
+                    <div class="matchrecord" style="background-color:<?php echo($away_text); ?>;color:<?php echo($away_bkgd); ?>;"><?php echo(ordinal_suffix($teams[$away_team_id]['pos']).' '.lang('poff_meta_place'));?>, <?php echo($teams[$away_team_id]['w']. " - ".$teams[$away_team_id]['l']); ?></div>
                     <div style="float:left; width:55px; text-align:center">&nbsp;</div>
-                    <div class="matchrecord" style="background-color:<?php echo($home_text); ?>;color:<?php echo($home_bkgd); ?>;text-align:right;"><?php echo(ordinal_suffix($teams[$home_team_id]['pos']));?> place, <?php echo($teams[$home_team_id]['w']. " - ".$teams[$home_team_id]['l']); ?></div>
+                    <div class="matchrecord" style="background-color:<?php echo($home_text); ?>;color:<?php echo($home_bkgd); ?>;text-align:right;"><?php echo(ordinal_suffix($teams[$home_team_id]['pos']).' '.lang('poff_meta_place'));?>, <?php echo($teams[$home_team_id]['w']. " - ".$teams[$home_team_id]['l']); ?></div>
                     <br clear="all" />
                 </div>
             </div>
@@ -89,13 +89,13 @@ else :
             <div class="span6">
             
             <?php if (isset($boxscores) && !empty($boxscores)) {
-                echo('<h3>Box Scores</h3>');
+                echo('<h3>'.lang('poff_title_boxscores').'</h3>');
                 echo($boxscores);
             }
             ?>
 
             <?php if (isset($upcoming) && !empty($upcoming)) {
-                echo('<h3>Upcoming Schedule</h3>');
+                echo('<h3>'.lang('poff_title_upcoming').'</h3>');
                 echo($upcoming);
             }
             ?>
@@ -103,7 +103,7 @@ else :
 
             <div class="span6">
 			<?php if(isset($top_perf) && is_array($top_perf) && count($top_perf)) : ?>
-            <h3>Top Performers</h3>
+            <h3><?php echo lang('poff_title_performers'); ?></h3>
 			<br />
             <?php
 				if (isset($top_perf['batters'])) :

@@ -1,12 +1,22 @@
 <?php
-if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) :
-    echo('<div class="row">No playoff games scheduled</div>' . "\n");
+if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) : ?>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+		<h1><?php echo(lang('poff_title_summary')); ?></h1>
+		
+		<?php echo lang('poff_messaging_no_games'); ?>
+		</div>
+	</div>
+</div>
+<?php
 else :
     krsort($rounds);
-    $text = "";
     foreach ($rounds as $rnd => $val) :
 
-        ##### Begin Round Display #####
+        /*---------------------------------
+		/	BEGIN ROUND DISPLAY
+		/--------------------------------*/
 		?>
         <div class="container-fluid">
 			<div class="row-fluid">
@@ -20,10 +30,12 @@ else :
 			</div>
 			
 			<?php
-			##### Check for Max Round #####
+			// TEST which round we are in game wise
 			$fldName = 'max_round';
 
-        ## In World Series
+        /*---------------------------------
+		/	FINAL ROUND
+		/--------------------------------*/
         if ($playoffConfig[$fldName] == $rnd) : ?>
             <div class="row-fluid">
 				<div class="span12">
@@ -32,7 +44,7 @@ else :
                 if ($series[$serID]['rnd'] != $rnd) :
 					continue;
 				endif;
-                ##### Get Teams #####
+                // Parse information for display
                 $e = explode(":", $serID);
                 $aid = $e[0];
                 $hid = $e[1];
@@ -61,7 +73,7 @@ else :
                     $aid = $tmp;
                 }
 
-                ##### Show Each Series #####
+                // Display the series info
 				?>
                 <table cellpadding="2" cellspacing="0" style="width:98%;margin:10px;">
 				<tr>
@@ -147,7 +159,9 @@ else :
 				</div>
 			</div>
         <?php
-        ## Sub-league playoff round
+        /*---------------------------------
+		/	SUB ROUND LOOP
+		/--------------------------------*/
         else :
         
             $slCnt = 0;
@@ -157,9 +171,8 @@ else :
 			<?php
 			
             foreach ($subleagues as $slid => $val) :
-                ## Structure Adjustment
 
-                ##### Begin League Display #####
+                // Display the series info
 				?>
                 <div class="span6">
                 <h3><?php echo($subleagues[$slid]['name']); ?></h3>
@@ -171,7 +184,7 @@ else :
                     if ($series[$serID]['slid'] != $slid) {
                         continue;
                     }
-                    ##### Get Teams #####
+                    // Parse information for display
                     $e = explode("_", $serID);
                     $aid = $e[0];
                     $hid = $e[1];
