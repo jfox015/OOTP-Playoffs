@@ -171,6 +171,8 @@ class Playoffs_model extends BF_Model
             $pcnt = 0;
             $rnd = 0;
             foreach ($games as $game_id => $row) {
+                if(!isset($year )) $year = date('Y',strtotime($row['date']));
+
                 $hid = $row['home_team'];
                 $aid = $row['away_team'];
                 $minTID = min($aid, $hid);
@@ -207,7 +209,7 @@ class Playoffs_model extends BF_Model
                 }
             }
             //echo("game id list = ".$gidList."<br />");
-            $return_arr = array($teams, $rounds, $series, $gidList, $pcnt);
+            $return_arr = array($teams, $rounds, $series, $gidList, $pcnt, $year);
         }
         return $return_arr;
     }

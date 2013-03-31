@@ -45,7 +45,7 @@ else :
 					continue;
 				endif;
                 // Parse information for display
-                $e = explode(":", $serID);
+                $e = explode("_", $serID);
                 $aid = $e[0];
                 $hid = $e[1];
                 $hW = $teams[$hid]['w'];
@@ -98,12 +98,15 @@ else :
 						}
 						?>
 						</h2>
+                        <?php
+                        if (isset($mvp_id)) :
+                        ?>
 						<p />
 						<h3 class='subhead2'>World Series MVP</h3>
 						<div class='subhead_rule'></div>
 						<p /><br />
 					<div class="spotlight">
-					<img src="<?php echo($settings['players_img_path']); ?>player_.png" />
+					<img src="<?php echo($settings['osp.players_img_url']); ?>player_<?php echo($mvp_id); ?>.png" />
 					<span class='spotlight_player'></span><br />
 					</div>
 					<br class="clear" />
@@ -137,12 +140,15 @@ else :
 						</td>
 					</tr>
 					</table>
+                    <?php
+                       endif;
+                    ?>
 					<p style="text-align:right;margin:0 8px 8px 0;">
 					<?php echo(anchor('/playoffs/series/'.$league_id.'/'.$serID.'/'.$rnd,'Complete Series Details')); ?>
 					</p>
 					</td>
 
-					<td style='"padding:1px;width:30%;text-align:center;">
+					<td style="padding:1px;width:30%;text-align:center;">
 						<img src="<?php echo($settings['osp.team_logo_url'] . $teams[$hid]['logo_file']); ?>" width="150" height="150" /><br/>
 						<span style="font-size:large; font-weight:bold;"><?php echo($teams[$hid]['name']); ?></span><br />
 						<?php echo(ordinal_suffix($teams[$hid]['pos'])); ?> place, <?php echo($teams[$hid]['w']."-".$teams[$hid]['l']); ?><br />

@@ -64,6 +64,7 @@ class Playoffs extends Front_Controller {
 			Template::set('playoffConfig',$playofff_struct);
 			Template::set('settings',$settings);
 			Template::set('league_id',$league_id);
+			Template::set('year',$playoff_data[5]);
 
             Assets::add_module_css('playoffs','playoffs.css');
 
