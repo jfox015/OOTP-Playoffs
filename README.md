@@ -13,7 +13,7 @@ Follow the official Twitter feed [ootpFox07](http://twitter.com/#!/ootpFox07).
 ## Team
 
 - [Jeff Fox](http://www.aeoliandigital.com/) - Lead Developer
-- Frank esselink - Original Developer of StatsLab
+- Frank Esselink - Original Developer of StatsLab mod for OOTP 12
 
 ## Contribute to the development
 
@@ -21,7 +21,7 @@ This mod is a 100% free and open source project. The source code is publicly ava
 
 ## License
 
-Copyright (c) 2012 Jeff Fox.
+Copyright (c) 2012-13 Jeff Fox.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
