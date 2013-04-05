@@ -4,7 +4,7 @@ A custom module for presenting OOTP playoff information on the web. This is a co
 
 ## Features
 
-- Display playoff infomration from an OOTP data dump
+- Display playoff information from an OOTP data dump
 
 ## Keep Current on the Mod
 
