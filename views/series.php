@@ -14,6 +14,8 @@ else :
         if ($homeScore == 0 || $awayScore == 0) $word = lang('poff_match_sweeps');
     endif;
     ?>
+	<?php if(isset($popup_template)) { echo($popup_template); } ?>
+
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span7">

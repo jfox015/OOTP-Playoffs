@@ -9,6 +9,9 @@ if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) : ?>
 		</div>
 	</div>
 </div>
+
+<?php if(isset($popup_template)) { echo($popup_template); } ?>
+
 <?php
 else :
     krsort($rounds);
