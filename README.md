@@ -1,6 +1,6 @@
 # OOTP Playoffs Module
 
-A custom module for presenting OOTP playoff information on the web. This is a conversion of StabsLab 12 Playoff code to OOWP format for ootp 13 compatibility.
+A custom module for presenting OOTP playoff information on the web. This is a conversion of StabsLab 12 Playoff code to FOSP format.
 
 ## Features
 
@@ -13,7 +13,7 @@ Follow the official Twitter feed [ootpFox07](http://twitter.com/#!/ootpFox07).
 ## Team
 
 - [Jeff Fox](http://www.aeoliandigital.com/) - Lead Developer
-- Frank Esselink - Original Developer of StatsLab mod for OOTP 12
+- Frank Esselink - StatsLab Developer
 
 ## Contribute to the development
 
