@@ -6,6 +6,17 @@ A custom module for presenting OOTP playoff information on the web. This is a co
 
 - Display playoff information from an OOTP data dump
 
+## Requirements
+
+- OOTP season must be in playoffs for this mod to capture information.
+
+## FOSP Module Dependancies
+
+- The Open Sports Toolkit
+- FOSP::League Manager
+- FOSP::Players
+- FOSP::Last Sim
+
 ## Keep Current on the Mod
 
 Follow the official Twitter feed [ootpFox07](http://twitter.com/#!/ootpFox07).
