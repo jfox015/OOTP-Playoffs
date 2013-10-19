@@ -16,8 +16,7 @@ if (!isset($rounds) || !is_array($rounds) || count($rounds) == 0) : ?>
 else :
     krsort($rounds);
     foreach ($rounds as $rnd => $val) :
-
-        /*---------------------------------
+		/*---------------------------------
 		/	BEGIN ROUND DISPLAY
 		/--------------------------------*/
 		?>
@@ -25,7 +24,7 @@ else :
 			<div class="row-fluid">
 				<div class="span12">
 					<?php
-					$fldName = "round_names" . (intval($rnd) - 1);
+					$fldName = "round_names" . (intval($rnd));
 					echo('<h1>'.$playoffConfig[$fldName].'</h1><br />');
 					?>
 				
@@ -186,8 +185,9 @@ else :
                 <div class="span6">
                 <h3><?php echo($subleagues[$slid]['name']); ?></h3>
 				<?php
-                foreach ($series as $serID => $val) :
-                    if ($series[$serID]['rnd'] != $rnd) {
+                
+				foreach ($series as $serID => $val) :
+					if ($series[$serID]['rnd'] != $rnd) {
                         continue;
                     }
                     if ($series[$serID]['slid'] != $slid) {

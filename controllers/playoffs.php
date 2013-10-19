@@ -155,30 +155,28 @@ class Playoffs extends Front_Controller {
                     $stats_list = Stats::get_stats_list();
 
                     // TOP PERFORMERS
-                    $top_bat_class = stats_class(TYPE_OFFENSE, CLASS_BASIC, array('NAME','TID','TOP_PLAYERS'));
-                    $top_batters = Stats::get_stats(ID_TEAM, false, TYPE_OFFENSE,$top_bat_class,STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList, 'limit'=>5, 'order_by'=>array('TRO'), 'order_dir'=> 'desc', 'select_data'=>array('GAME_COUNT'=>$pcnt)));
+					$top_bat_class = stats_class(TYPE_OFFENSE, CLASS_BASIC, array('NAME','TID','TOP_PLAYERS'));
+                    $top_batters = Stats::get_stats(ID_TEAM, false, TYPE_OFFENSE,$top_bat_class,STATS_GAME,RANGE_GAME_ID_LIST,array('where'=>array('league_id'=>$league_id),'split'=>SPLIT_NONE,'id_list'=>$gidList, 'limit'=>5, 'order_by'=>array('TRO'), 'order_dir'=> 'desc', 'select_data'=>array('GAME_COUNT'=>$pcnt)));
                     $top_perf['batters'] = $this->load->view('lastsim/top_performers',array('performers'=>$top_batters,'stats_class'=>$top_bat_class,'stats_list'=>$stats_list,'player_type'=>TYPE_OFFENSE, 'teams'=>$teams), true);
 
                     $top_pitch_class = stats_class(TYPE_SPECIALTY, CLASS_BASIC, array('NAME','TID','TOP_PLAYERS'));
-                    $top_pitchers = Stats::get_stats(ID_TEAM, false, TYPE_SPECIALTY,$top_pitch_class,STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList, 'limit'=>5, 'order_by'=>array('TRP'), 'order_dir'=> 'desc', 'select_data'=>array('GAME_COUNT'=>$pcnt)));
+                    $top_pitchers = Stats::get_stats(ID_TEAM, false, TYPE_SPECIALTY,$top_pitch_class,STATS_GAME,RANGE_GAME_ID_LIST,array('where'=>array('league_id'=>$league_id),'split'=>SPLIT_NONE,'id_list'=>$gidList, 'limit'=>5, 'order_by'=>array('TRP'), 'order_dir'=> 'desc', 'select_data'=>array('GAME_COUNT'=>$pcnt)));
                     $top_perf['pitchers'] = $this->load->view('lastsim/top_performers',array('performers'=>$top_pitchers,'stats_class'=>$top_pitch_class,'stats_list'=>$stats_list,'player_type'=>TYPE_SPECIALTY, 'teams'=>$teams), true);
 
                     $stat_classes = array (
                         'Batting'=>stats_class(TYPE_OFFENSE, CLASS_COMPLETE, array('NAME')),
-                        'Pitching'=>stats_class(TYPE_SPECIALTY,CLASS_COMPLETE, array('NAME'))
+                        'Batting_totals'=>stats_class(TYPE_OFFENSE, CLASS_COMPLETE, array('NAME')),
+                        'Pitching'=>stats_class(TYPE_SPECIALTY,CLASS_COMPLETE, array('NAME')),
+                        'Pitching_totals'=>stats_class(TYPE_SPECIALTY,CLASS_COMPLETE, array('NAME'))
                     );
                     $stats= array (
                         'home' => array(
-                            'Batting'=>Stats::get_stats(ID_TEAM, $sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList)),
-                            'Batting_totals'=>Stats::get_stats(ID_TEAM, $sTeams[0],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList,'total'=>1), true),
-                            'Pitching'=>Stats::get_stats(ID_TEAM, $sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList)),
-                            'Pitching_totals'=>Stats::get_stats(ID_TEAM, $sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList,'total'=>1))
+							'Batting'=>Stats::get_stats(ID_TEAM, $sTeams[0],TYPE_MIXED_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList)),
+                            'Pitching'=>Stats::get_stats(ID_TEAM, $sTeams[0],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList))
                         ),
                         'away' => array (
-                            'Batting'=>Stats::get_stats(ID_TEAM, $sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList)),
-                            'Batting_totals'=>Stats::get_stats(ID_TEAM, $sTeams[1],TYPE_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList,'total'=>1)),
-                            'Pitching'=>Stats::get_stats(ID_TEAM, $sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList)),
-                            'Pitching_totals'=>Stats::get_stats(ID_TEAM, $sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_PLAYOFFS,'id_list'=>$gidList,'total'=>1))
+                           'Batting'=>Stats::get_stats(ID_TEAM, $sTeams[1],TYPE_MIXED_OFFENSE,$stat_classes['Batting'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList)),
+                           'Pitching'=>Stats::get_stats(ID_TEAM, $sTeams[1],TYPE_SPECIALTY,$stat_classes['Pitching'],STATS_GAME,RANGE_GAME_ID_LIST,array('split'=>SPLIT_NONE,'id_list'=>$gidList))
                         )
                     );
                     // RENDER STATS TO VIEW CODE
@@ -186,13 +184,12 @@ class Playoffs extends Front_Controller {
                     $away_name = $teams[$sTeams[1]]['name']." ".$teams[$sTeams[1]]['nickname'];
 
                     $batting = array(
-                        'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'player_type'=>TYPE_OFFENSE,'stats_class'=>$stat_classes['Batting'],'stats_list'=>$stats_list,'records'=>$stats['home']['Batting'], 'totals' =>$stats['home']['Batting_totals']), true),
-                        'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'player_type'=>TYPE_OFFENSE,'stats_class'=>$stat_classes['Batting'],'stats_list'=>$stats_list,'records'=>$stats['away']['Batting'], 'totals' =>$stats['away']['Batting_totals']), true),
+                        'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'player_type'=>TYPE_OFFENSE,'stats_class'=>$stat_classes['Batting'],'stats_list'=>$stats_list,'records'=>$stats['home']['Batting']), true),
+                        'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'player_type'=>TYPE_OFFENSE,'stats_class'=>$stat_classes['Batting'],'stats_list'=>$stats_list,'records'=>$stats['away']['Batting']), true)
                     );
                     $pitching = array(
-                        //'home' => $stats['home']['Batting_totals']
-                        'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'player_type'=>TYPE_SPECIALTY,'stats_class'=>$stat_classes['Pitching'],'stats_list'=>$stats_list,'records'=>$stats['home']['Pitching'], 'totals' =>$stats['home']['Pitching_totals']), true),
-                        'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'player_type'=>TYPE_SPECIALTY,'stats_class'=>$stat_classes['Pitching'],'stats_list'=>$stats_list,'records'=>$stats['away']['Pitching'], 'totals' =>$stats['away']['Pitching_totals']), true),
+                        'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'player_type'=>TYPE_SPECIALTY,'stats_class'=>$stat_classes['Pitching'],'stats_list'=>$stats_list,'records'=>$stats['home']['Pitching'], 'totals'=>$stats['home']['Pitching_totals']), true),
+                        'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'player_type'=>TYPE_SPECIALTY,'stats_class'=>$stat_classes['Pitching'],'stats_list'=>$stats_list,'records'=>$stats['away']['Pitching']), true)
                     );
                 }
 

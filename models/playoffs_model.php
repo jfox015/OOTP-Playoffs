@@ -184,17 +184,23 @@ class Playoffs_model extends BF_Model
                 $played = $row['played'];
 
                 if (!isset($teams[$hid][$serID])) {
-                    $teams[$hid][$serID] = 1;
+					$teams[$hid][$serID] = 1;
                     $teams[$aid][$serID] = 1;
                     $series[$serID][$hid]['w'] = 0;
                     $series[$serID][$aid]['w'] = 0;
-                    $rnd = (isset($teams[$hid]['rnd'])) ? $teams[$hid]['rnd'] + 1 : 1;
-                    $teams[$hid]['rnd'] = $rnd;
+					if (isset($teams[$aid]) && isset($teams[$aid]['rnd'])) {
+						$rnd = $teams[$aid]['rnd'] + 1;
+					} else if (isset($teams[$hid]['rnd'])) {
+						$rnd = $teams[$hid]['rnd'] + 1;
+					}
+					$teams[$hid]['rnd'] = $rnd;
                     $teams[$aid]['rnd'] = $rnd;
                     $series[$serID]['rnd'] = $rnd;
                     $series[$serID]['slid'] = $teams[$hid]['sub_league_id'];
                     $rounds[$rnd] = 1;
-                }
+                } else {
+					$rnd = $teams[$hid]['rnd'];
+				}
 
                 if ($played == 1) {
                     if ($runs1 > $runs0) {
