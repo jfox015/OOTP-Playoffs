@@ -188,7 +188,7 @@ class Playoffs extends Front_Controller {
                         'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'player_type'=>TYPE_OFFENSE,'stats_class'=>$stat_classes['Batting'],'stats_list'=>$stats_list,'records'=>$stats['away']['Batting']), true)
                     );
                     $pitching = array(
-                        'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'player_type'=>TYPE_SPECIALTY,'stats_class'=>$stat_classes['Pitching'],'stats_list'=>$stats_list,'records'=>$stats['home']['Pitching'], 'totals'=>$stats['home']['Pitching_totals']), true),
+                        'home' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$home_name,'player_type'=>TYPE_SPECIALTY,'stats_class'=>$stat_classes['Pitching'],'stats_list'=>$stats_list,'records'=>$stats['home']['Pitching']), true),
                         'away' => $this->load->view('open_sports_toolkit/stats_table',array('teamname'=>$away_name,'player_type'=>TYPE_SPECIALTY,'stats_class'=>$stat_classes['Pitching'],'stats_list'=>$stats_list,'records'=>$stats['away']['Pitching']), true)
                     );
                 }

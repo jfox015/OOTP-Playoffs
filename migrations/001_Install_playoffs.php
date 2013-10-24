@@ -30,7 +30,25 @@ class Migration_Install_playoffs extends Migration {
 		$this->dbforge->create_table('playoffs_round_details');
 		
 		$this->db->query("UPDATE {$prefix}sql_tables SET required = 1 WHERE name = 'league_playoffs' OR name = 'league_playoff_fixtures' OR name = 'team_record' OR name = 'sub_leagues'");
-			
+		
+		if ($this->db->table_exists('navigation')) 
+		{
+			$query = $this->db->query("SELECT nav_group_id FROM {$prefix}navigation_group where title = 'header_nav'");
+			if ($query->num_rows() > 0) 
+			{
+				$row = $query->row();
+				$nav_group_id = $row->nav_group_id;
+				$data = array('nav_id'=>0,
+					  'title'=>'Playoffs',
+					  'url'=>'/playoffs',
+					  'nav_group_id'=>$nav_group_id,
+					  'position'=>4,
+					  'parent_id'=>0,
+					  'has_kids'=>0);
+				$this->db->insert("{$prefix}navigation",$data);
+			}
+			$query->free_result();
+		}
 	}
 	
 	//--------------------------------------------------------------------
@@ -52,6 +70,8 @@ class Migration_Install_playoffs extends Migration {
 		
 		$this->db->query("UPDATE {$prefix}sql_tables SET required = 0 WHERE name = 'league_playoffs' OR name = 'league_playoff_fixtures' OR name = 'team_record' OR name = 'sub_leagues'");
 		
+		//delete the nav item
+		$this->db->query("DELETE FROM {$prefix}navigation WHERE (title = 'Playoffs')");
 	}
 	
 	//--------------------------------------------------------------------
